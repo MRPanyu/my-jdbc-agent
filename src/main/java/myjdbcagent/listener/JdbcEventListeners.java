@@ -5,9 +5,25 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * JdbcEventListeners manages all {@link JdbcEventListener} and calls them in
+ * method delegation events.
+ * 
+ * @author panyu
+ *
+ */
 public class JdbcEventListeners {
 
 	private static List<JdbcEventListener> listeners = new ArrayList<JdbcEventListener>();
+
+	/**
+	 * Current initialization process is just call every known JdbcEventListener
+	 * implementation classes and let them config themselves, during which they may
+	 * (or may not) register themselves into the JdbcEventListeners class.
+	 */
+	public static void init() {
+		LoggingJdbcEventListener.init();
+	}
 
 	public synchronized static void addListener(JdbcEventListener listener) {
 		listeners.add(listener);

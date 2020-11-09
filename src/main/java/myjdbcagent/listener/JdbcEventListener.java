@@ -3,6 +3,15 @@ package myjdbcagent.listener;
 import java.sql.Connection;
 import java.sql.ResultSet;
 
+/**
+ * A JdbcEventListener is called by method delegations and can do any arbitrary
+ * work such as logging or connection leak detection.
+ * <p>
+ * Must register itself in {@link JdbcEventListeners} to take effect.
+ * 
+ * @author panyu
+ *
+ */
 public interface JdbcEventListener {
 
 	public void onConnectionOpen(Connection conn);

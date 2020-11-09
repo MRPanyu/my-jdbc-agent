@@ -10,6 +10,12 @@ import myjdbcagent.support.SupportObject;
 import net.bytebuddy.implementation.bind.annotation.SuperCall;
 import net.bytebuddy.implementation.bind.annotation.This;
 
+/**
+ * MethodDelegation class for {@link java.sql.ResultSet}
+ * 
+ * @author panyu
+ *
+ */
 public class ResultSetDelegation {
 
 	public static boolean next(@SuperCall Callable<Boolean> superCall, @This Object thisObj) throws SQLException {

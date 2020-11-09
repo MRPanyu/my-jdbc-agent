@@ -4,6 +4,18 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.WeakHashMap;
 
+/**
+ * A SupportObject is an data object attached to each
+ * Connection/Statement/ResultSet object which stores information needed by
+ * method delegations.
+ * <p>
+ * Currently the createTime for any object; The sql and parameters for
+ * PreparedStatement/ResultSet and the current row number for ResultSet is
+ * stored.
+ * 
+ * @author panyu
+ *
+ */
 public class SupportObject implements Serializable {
 
 	private static final long serialVersionUID = 1L;

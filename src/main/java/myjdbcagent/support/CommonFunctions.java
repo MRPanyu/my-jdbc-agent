@@ -2,8 +2,17 @@ package myjdbcagent.support;
 
 import java.sql.SQLException;
 
+/**
+ * Some common functions used by other classes.
+ * 
+ * @author panyu
+ *
+ */
 public class CommonFunctions {
 
+	/**
+	 * Rethrow an exception without unnecessary wrapping.
+	 */
 	public static <T> T rethrowException(Throwable e) throws SQLException {
 		if (e instanceof SQLException) {
 			throw (SQLException) e;

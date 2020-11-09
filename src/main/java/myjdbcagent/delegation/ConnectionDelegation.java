@@ -4,6 +4,7 @@ import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.concurrent.Callable;
 
 import myjdbcagent.listener.JdbcEventListeners;
@@ -13,7 +14,26 @@ import net.bytebuddy.implementation.bind.annotation.Argument;
 import net.bytebuddy.implementation.bind.annotation.SuperCall;
 import net.bytebuddy.implementation.bind.annotation.This;
 
+/**
+ * MethodDelegation class for {@link java.sql.Connection}
+ * 
+ * @author panyu
+ *
+ */
 public class ConnectionDelegation {
+
+	public static Statement createStatement(@SuperCall Callable<PreparedStatement> superCall, @This Object thisObj)
+			throws SQLException {
+		try {
+			Statement st = superCall.call();
+			if (SupportObject.hasSupportObject(thisObj)) {
+				SupportObject.createSupportObject(st);
+			}
+			return st;
+		} catch (Throwable e) {
+			return CommonFunctions.rethrowException(e);
+		}
+	}
 
 	public static PreparedStatement prepareStatement(@Argument(0) String sql,
 			@SuperCall Callable<PreparedStatement> superCall, @This Object thisObj) throws SQLException {
