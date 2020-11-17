@@ -5,6 +5,10 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.sql.DataSource;
+
+import myjdbcagent.support.Logger;
+
 /**
  * JdbcEventListeners manages all {@link JdbcEventListener} and calls them in
  * method delegation events.
@@ -23,21 +27,23 @@ public class JdbcEventListeners {
 	 */
 	public static void init() {
 		LoggingJdbcEventListener.init();
+		LeakDetectionJdbcEventListener.init();
 	}
 
 	public synchronized static void addListener(JdbcEventListener listener) {
 		listeners.add(listener);
+		Logger.log("Registered JdbcEventListener: " + listener.getClass().getName());
 	}
 
-	public static void onConnectionOpen(Connection conn) {
+	public static void onConnectionOpen(DataSource dataSource, Connection conn) {
 		for (JdbcEventListener listener : listeners) {
-			listener.onConnectionOpen(conn);
+			listener.onConnectionOpen(dataSource, conn);
 		}
 	}
 
-	public static void onConnectionOpenFail(Throwable t) {
+	public static void onConnectionOpenFail(DataSource dataSource, Throwable t) {
 		for (JdbcEventListener listener : listeners) {
-			listener.onConnectionOpenFail(t);
+			listener.onConnectionOpenFail(dataSource, t);
 		}
 	}
 

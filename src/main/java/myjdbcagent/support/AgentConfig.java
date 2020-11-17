@@ -3,6 +3,7 @@ package myjdbcagent.support;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.net.URL;
+import java.util.Map;
 import java.util.Properties;
 
 /**
@@ -43,6 +44,13 @@ public class AgentConfig {
 					in.close();
 				}
 			}
+			StringBuilder sb = new StringBuilder("Starting MyJdbcAgent with configs:");
+			sb.append("\n==============================");
+			for (Map.Entry<Object, Object> entry : props.entrySet()) {
+				sb.append("\n").append(entry.getKey()).append("=").append(entry.getValue());
+			}
+			sb.append("\n==============================");
+			Logger.log(sb.toString());
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}

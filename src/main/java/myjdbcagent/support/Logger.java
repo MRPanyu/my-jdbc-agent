@@ -47,8 +47,8 @@ public class Logger {
 	public static void log(String message) {
 		StringBuilder sb = new StringBuilder();
 		sb.append("[MyJdbcAgent][")
-				.append(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").format(System.currentTimeMillis())).append("]")
-				.append(": ").append(message);
+				.append(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").format(System.currentTimeMillis())).append("][")
+				.append(Thread.currentThread().getName()).append("]: ").append(message);
 		out.println(sb.toString());
 	}
 

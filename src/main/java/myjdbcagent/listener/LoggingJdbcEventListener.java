@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.util.Arrays;
 
+import javax.sql.DataSource;
+
 import myjdbcagent.support.AgentConfig;
 import myjdbcagent.support.Logger;
 
@@ -47,14 +49,14 @@ public class LoggingJdbcEventListener implements JdbcEventListener {
 	private int logResultSetEventOfMinimalRow = 0;
 
 	@Override
-	public void onConnectionOpen(Connection conn) {
+	public void onConnectionOpen(DataSource dataSource, Connection conn) {
 		if (logConnectionEvent) {
 			Logger.log("onConnectionOpen: (connection=" + conn + ")");
 		}
 	}
 
 	@Override
-	public void onConnectionOpenFail(Throwable t) {
+	public void onConnectionOpenFail(DataSource dataSource, Throwable t) {
 		if (logConnectionEvent) {
 			Logger.log("onConnectionOpenFail: (exception=" + t.getClass().getName() + ":" + t.getMessage() + ")");
 		}

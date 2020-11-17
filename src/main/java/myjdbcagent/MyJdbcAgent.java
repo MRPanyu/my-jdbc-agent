@@ -14,7 +14,6 @@ import myjdbcagent.delegation.DataSourceDelegation;
 import myjdbcagent.delegation.ResultSetDelegation;
 import myjdbcagent.delegation.StatementDelegation;
 import myjdbcagent.listener.JdbcEventListeners;
-import myjdbcagent.listener.LoggingJdbcEventListener;
 import myjdbcagent.support.AgentConfig;
 import myjdbcagent.support.Logger;
 import net.bytebuddy.ByteBuddy;
@@ -32,10 +31,10 @@ import net.bytebuddy.utility.JavaModule;
 public class MyJdbcAgent {
 
 	public static void premain(String options, Instrumentation inst) {
-		Logger.log("Starting MyJdbcAgent");
+		Logger.log("Initializing MyJdbcAgent");
 		AgentConfig.init();
 		Logger.init();
-		JdbcEventListeners.addListener(new LoggingJdbcEventListener());
+		JdbcEventListeners.init();
 		/*
 		 * some connection pool also uses bytecode generation which may produce invalid
 		 * but runnable codes. Here we disable bytebuddy validation to prevent error.
